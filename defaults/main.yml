@@ -1,7 +1,7 @@
 # file: nginx/defaults/main.yml
 
 nginx_install_method: "source"
-nginx_source_version: "1.5.3"
+nginx_source_version: "1.7.9"
 
 nginx_user: www-data
 nginx_group: www-data
@@ -9,7 +9,7 @@ nginx_uid: 33
 nginx_gid: 33
 
 nginx_dir: "/etc/nginx"
-nginx_www_dir: "/srv/www"
+nginx_www_dir: "/var/www"
 nginx_log_dir: "/var/log/nginx"
 nginx_pid: "/var/run/nginx.pid"
 
@@ -72,19 +72,24 @@ nginx_source_modules_included:
   http_gzip_static_module: "--with-http_gzip_static_module"
   upload_progress_module: "--add-module=/tmp/nginx_upload_progress"
   headers_more_module: "--add-module=/tmp/nginx_headers_more"
-  http_auth_request_module: "--add-module=/tmp/nginx_auth_request"
-  http_echo_module: "--add-module=/tmp/nginx_echo"
+  # http_auth_request_module: "--add-module=/tmp/nginx_auth_request"
+  # http_echo_module: "--add-module=/tmp/nginx_echo"
   google_perftools_module: "--with-google_perftools_module"
   ipv6_module: "--with-ipv6"
   http_real_ip_module: "--with-http_realip_module"
   http_spdy_module: "--with-http_spdy_module"
-  http_perl_module: "--with-http_perl_module"
-  naxsi_module: "--add-module=/tmp/nginx_naxsi"
+  # http_perl_module: "--with-http_perl_module"
+  # naxsi_module: "--add-module=/tmp/nginx_naxsi"
 
 nginx_source_modules_excluded:
   - mail_pop3_module
   - mail_imap_module
   - mail_smtp_module
+  - http_autoindex_module
+  - http_browser_module
+  - http_memcached_module
+  - http_scgi_module
+  - http_uwsgi_module
 
 nginx_source_configure_flags: "{{nginx_source_default_configure_flags}}{% for key, value in nginx_source_modules_included.items() %} {{value}}{% endfor %}{% for item in nginx_source_modules_excluded %} --without-{{item}}{% endfor %}"
 

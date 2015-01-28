@@ -40,6 +40,8 @@
     make &&
     make install
   when: nginx_flags.changed
+  notify:
+    - restart nginx
 
 - name: Nginx | Update the symbolic link to the nginx install
   file:
