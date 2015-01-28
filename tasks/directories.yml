@@ -27,3 +27,12 @@
     recurse: yes
     state: directory
   with_items: ["sites-available", "sites-enabled", "conf.d"]
+
+- name: Nginx | Make sure the /etc/ssl/keys directory exist
+  file:
+    path: "/etc/ssl/keys"
+    owner: root
+    group: root
+    mode: 0755
+    recurse: yes
+    state: directory
